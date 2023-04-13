@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="App" style={{ margin: "20px" }}>
       <RGDTable />
-      {/* <RDGTable2 /> */}
     </div>
   );
 }
