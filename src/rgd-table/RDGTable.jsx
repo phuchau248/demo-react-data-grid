@@ -95,7 +95,7 @@ const groupColumn = {
 };
 
 const RGDTable = () => {
-  const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(options[2]);
 
   const handleChange = (value) => {
     setSelected(value);
@@ -125,7 +125,6 @@ const RGDTable = () => {
     <div className="demo-react-data-grid">
       <div className="react-select-wrapper">
         <Select
-          defaultValue={20}
           value={selected}
           onChange={handleChange}
           options={options}
