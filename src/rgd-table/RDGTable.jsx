@@ -128,7 +128,15 @@ const columns = [
     header: "evntTypeNm",
     textAlign: "center",
     render: (data) => {
-      return data?.value ? <div className="data-chip">{data?.value}</div> : "-";
+      return data?.value ? (
+        data?.value === "2+1" ? (
+          <div className="data-chip-2">{data?.value}</div>
+        ) : (
+          <div className="data-chip">{data?.value}</div>
+        )
+      ) : (
+        "-"
+      );
     },
     // rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
     //   let rowspan = 1;
@@ -266,7 +274,7 @@ const RGDTable = () => {
         style={gridStyle}
         pagination
         livePagination
-        groupColumn={groupColumn}
+        groupColumn={null}
         defaultGroupBy={["salesDt"]}
         scrollThreshold={0.9}
         limit={selected.value}
