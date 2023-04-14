@@ -1,10 +1,19 @@
 import React, { useCallback, useState } from "react";
 import ReactDataGrid from "@inovua/reactdatagrid-enterprise";
+import SelectFilter from "@inovua/reactdatagrid-community/SelectFilter";
 import "@inovua/reactdatagrid-enterprise/index.css";
 import Select from "react-select";
 import "./style.scss";
 
 const gridStyle = { minHeight: 550, marginTop: 10 };
+
+const filterValue = [
+  { name: "firstName", operator: "startsWith", type: "string", value: "" },
+  { name: "lastName", operator: "startsWith", type: "string", value: "" },
+  { name: "pictureId", operator: "gte", type: "number", value: 0 },
+  { name: "email", operator: "startsWith", type: "string", value: "" },
+  { name: "address", operator: "startsWith", type: "string", value: "" },
+];
 
 const columns = [
   {
@@ -80,6 +89,11 @@ const options = [
   { value: 100, label: "100 Record" },
 ];
 
+const groupColumn = {
+  renderGroupValue: ({ value }) =>
+    value === "true" ? "Yes" : value === "false" ? "No" : value,
+};
+
 const RGDTable = () => {
   const [selected, setSelected] = useState(options[0]);
 
@@ -121,12 +135,15 @@ const RGDTable = () => {
       <ReactDataGrid
         idProperty="id"
         showZebraRows={false}
+        defaultFilterValue={filterValue}
         columns={columns}
         dataSource={dataSource}
         reorderColumns={true}
         style={gridStyle}
         pagination
         livePagination
+        groupColumn={groupColumn}
+        defaultGroupBy={["pictureId"]}
         scrollThreshold={0.9}
         limit={selected.value}
       />
