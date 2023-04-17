@@ -80,29 +80,29 @@ const columns = [
     name: "salesDt",
     defaultVisible: true,
     textAlign: "center",
-    // rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
-    //   let rowspan = 1;
-    //   const prevData = dataSourceArray[rowIndex - 1];
-    //   if (
-    //     prevData &&
-    //     !!prevData[column.name] &&
-    //     !!value &&
-    //     prevData[column.name] === value
-    //   ) {
-    //     return rowspan;
-    //   }
-    //   let currentRowIndex = rowIndex + 1;
-    //   while (
-    //     !!dataSourceArray[currentRowIndex] &&
-    //     !!value &&
-    //     dataSourceArray[currentRowIndex][column.name] === value
-    //   ) {
-    //     rowspan++;
-    //     currentRowIndex++;
-    //   }
+    rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
+      let rowspan = 1;
+      const prevData = dataSourceArray[rowIndex - 1];
+      if (
+        prevData &&
+        !!prevData[column.name] &&
+        !!value &&
+        prevData[column.name] === value
+      ) {
+        return rowspan;
+      }
+      let currentRowIndex = rowIndex + 1;
+      while (
+        !!dataSourceArray[currentRowIndex] &&
+        !!value &&
+        dataSourceArray[currentRowIndex][column.name] === value
+      ) {
+        rowspan++;
+        currentRowIndex++;
+      }
 
-    //   return rowspan;
-    // },
+      return rowspan;
+    },
   },
   {
     header: "공급 코드",
