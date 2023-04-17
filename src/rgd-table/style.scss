@@ -1,25 +1,97 @@
 .demo-react-data-grid {
+  .data-grid-table {
+    .InovuaReactDataGrid__cell--rowspan {
+      display: inline;
+      .InovuaReactDataGrid__cell__content {
+        width: 100%;
+      }
+    }
+    .InovuaReactDataGrid__row-hover-target:hover {
+      background: #f6f7f9 !important;
+      // color: #555e68 !important;
+    }
+    .InovuaReactDataGrid__cell {
+      border-left: none;
+      border-right: none;
+    }
+    .InovuaReactDataGrid__column-header {
+      background-color: #f6f7f9;
+      &__content {
+        font-weight: 500;
+      }
+      &__resize-wrapper {
+        border: none;
+      }
+    }
+  }
   .react-select-wrapper {
     height: 40px;
+    .export-button:hover {
+      background-color: hsl(0, 0%, 98%);
+    }
+    .export-button:active {
+      // border-color: #2684ff;
+      // border-width: 2px;
+      background-color: hsl(0, 0%, 90%);
+    }
+    .export-button {
+      height: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      -webkit-box-pack: justify;
+      min-height: 38px;
+      position: relative;
+      transition: all 100ms;
+      background-color: hsl(0, 0%, 100%);
+      border-color: hsl(0, 0%, 80%);
+      border-radius: 4px;
+      border-style: solid;
+      border-width: 1px;
+      box-sizing: border-box;
+      width: 100px;
+      a {
+        display: flex;
+        gap: 5px;
+        text-decoration: none;
+        color: hsl(0, 0%, 20%);
+
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
     .react-select {
+      margin-left: 10px;
       float: right;
-      width: 150px;
       text-align: start;
+    }
+    .active-columns-select {
+      width: 200px;
+      &__clear-indicator {
+        display: none;
+      }
+      &__placeholder {
+        color: hsl(0, 0%, 20%);
+      }
     }
   }
   .data-chip {
     width: fit-content;
     padding: 5px;
     margin: auto;
-    background: aquamarine;
+    background: #ddf5ee;
+    color: #55af8e;
     border-radius: 25%;
   }
   .data-chip-2 {
     width: fit-content;
     padding: 5px;
     margin: auto;
-    background: purple;
+    background: #ebeafd;
     border-radius: 25%;
-    color: white
+    color: #8f83d7;
   }
 }

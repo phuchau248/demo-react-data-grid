@@ -2,10 +2,61 @@ import React, { useCallback, useState } from "react";
 import ReactDataGrid from "@inovua/reactdatagrid-enterprise";
 import SelectFilter from "@inovua/reactdatagrid-community/SelectFilter";
 import "@inovua/reactdatagrid-enterprise/index.css";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import "./style.scss";
 import data from "./mock.json";
+import { CSVLink } from "react-csv";
 
+const InputOption = ({
+  getStyles,
+  Icon,
+  isDisabled,
+  isFocused,
+  isSelected,
+  children,
+  innerProps,
+  ...rest
+}) => {
+  const [isActive, setIsActive] = useState(false);
+  const onMouseDown = () => setIsActive(true);
+  const onMouseUp = () => setIsActive(false);
+  const onMouseLeave = () => setIsActive(false);
+
+  // styles
+  let bg = "transparent";
+  if (isFocused) bg = "#eee";
+  if (isActive) bg = "#B2D4FF";
+
+  const style = {
+    alignItems: "center",
+    backgroundColor: bg,
+    color: "inherit",
+    display: "flex ",
+  };
+
+  // prop assignment
+  const props = {
+    ...innerProps,
+    onMouseDown,
+    onMouseUp,
+    onMouseLeave,
+    style,
+  };
+
+  return (
+    <components.Option
+      {...rest}
+      isDisabled={isDisabled}
+      isFocused={isFocused}
+      isSelected={isSelected}
+      getStyles={getStyles}
+      innerProps={props}
+    >
+      <input type="checkbox" checked={isSelected} />
+      {children}
+    </components.Option>
+  );
+};
 const gridStyle = { minHeight: 550, marginTop: 10 };
 
 const filterValue = [
@@ -25,108 +76,124 @@ const columns = [
     maxWidth: 40,
   },
   {
+    header: "판매 코드",
     name: "salesDt",
-    header: "salesDt",
-    locked: true,
     defaultVisible: true,
     textAlign: "center",
+    // rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
+    //   let rowspan = 1;
+    //   const prevData = dataSourceArray[rowIndex - 1];
+    //   if (
+    //     prevData &&
+    //     !!prevData[column.name] &&
+    //     !!value &&
+    //     prevData[column.name] === value
+    //   ) {
+    //     return rowspan;
+    //   }
+    //   let currentRowIndex = rowIndex + 1;
+    //   while (
+    //     !!dataSourceArray[currentRowIndex] &&
+    //     !!value &&
+    //     dataSourceArray[currentRowIndex][column.name] === value
+    //   ) {
+    //     rowspan++;
+    //     currentRowIndex++;
+    //   }
+
+    //   return rowspan;
+    // },
   },
   {
+    header: "공급 코드",
     name: "suppCd",
-    header: "suppCd",
     textAlign: "center",
+    defaultVisible: false,
   },
   {
+    header: "공급 이름",
     name: "suppNm",
-    header: "suppNm",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
+    header: "구매 조건 코드",
     name: "purchCondCd",
-    header: "purchCondCd",
     textAlign: "center",
+    defaultVisible: false,
   },
   {
+    header: "구매조건명",
     name: "purchCondNm",
-    header: "purchCondNm",
     textAlign: "center",
+    defaultVisible: true,
   },
+  // {
+  //   header: "itemLclsCd",
+  //   name: "itemLclsCd",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "itemLclsNm",
+  //   name: "itemLclsNm",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "itemMclsCd",
+  //   name: "itemMclsCd",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "itemMclsNm",
+  //   name: "itemMclsNm",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "itemSclsCd",
+  //   name: "itemSclsCd",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "itemSclsNm",
+  //   name: "itemSclsNm",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
   {
-    name: "itemLclsCd",
-    header: "itemLclsCd",
-    textAlign: "center",
-  },
-  {
-    name: "itemLclsNm",
-    header: "itemLclsNm",
-    textAlign: "center",
-  },
-  {
-    name: "itemMclsCd",
-    header: "itemMclsCd",
-    textAlign: "center",
-  },
-  {
-    name: "itemMclsNm",
-    header: "itemMclsNm",
-    textAlign: "center",
-  },
-  {
-    name: "itemSclsCd",
-    header: "itemSclsCd",
-    textAlign: "center",
-  },
-  {
-    name: "itemSclsNm",
-    header: "itemSclsNm",
-    textAlign: "center",
-  },
-  {
+    header: "아이템 코드",
     name: "itemCd",
-    header: "itemCd",
     textAlign: "center",
-    rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
-      let rowspan = 1;
-      const prevData = dataSourceArray[rowIndex - 1];
-      if (
-        prevData &&
-        !!prevData[column.name] &&
-        !!value &&
-        prevData[column.name] === value
-      ) {
-        return rowspan;
-      }
-      let currentRowIndex = rowIndex + 1;
-      while (
-        !!dataSourceArray[currentRowIndex] &&
-        !!value &&
-        dataSourceArray[currentRowIndex][column.name] === value
-      ) {
-        rowspan++;
-        currentRowIndex++;
-      }
-      return rowspan;
-    },
+    defaultVisible: true,
   },
   {
+    header: "상품명",
     name: "itemNm",
-    header: "itemNm",
     textAlign: "center",
+    defaultVisible: true,
+    minWidth: 300,
   },
   {
+    header: "유니 이벤트 코드",
     name: "uniEvntCd",
-    header: "uniEvntCd",
     textAlign: "center",
+    defaultVisible: false,
   },
   {
+    header: "유니 이벤트 이름",
     name: "uniEvntSpNm",
-    header: "uniEvntSpNm",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
+    header: "이벤트 유형 이름",
     name: "evntTypeNm",
-    header: "evntTypeNm",
     textAlign: "center",
+    defaultVisible: true,
     render: (data) => {
       return data?.value ? (
         data?.value === "2+1" ? (
@@ -138,72 +205,66 @@ const columns = [
         "-"
       );
     },
-    // rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
-    //   let rowspan = 1;
-    //   const prevData = dataSourceArray[rowIndex - 1];
-    //   if (prevData && prevData[column.name] === value) {
-    //     return rowspan;
-    //   }
-    //   let currentRowIndex = rowIndex + 1;
-    //   while (
-    //     dataSourceArray[currentRowIndex] &&
-    //     dataSourceArray[currentRowIndex][column.name] === value
-    //   ) {
-    //     rowspan++;
-    //     currentRowIndex++;
-    //   }
-    //   return rowspan;
-    // },
   },
   {
+    header: "이벤트 그룹 이름",
     name: "evntGrpNm",
-    header: "evntGrpNm",
     textAlign: "center",
+    defaultVisible: false,
   },
   {
+    header: "행사 시작일",
     name: "evntDurBeginDt",
-    header: "evntDurBeginDt",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
+    header: "이벤트 종료 날짜",
     name: "evntDurEndDt",
-    header: "evntDurEndDt",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
+    header: "판매량",
     name: "salesAmt",
-    header: "salesAmt",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
+    header: "판매수량",
     name: "salesQty",
-    header: "salesQty",
     textAlign: "center",
+    defaultVisible: true,
   },
+  // {
+  //   header: "evntCst",
+  //   name: "evntCst",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "evntSprc",
+  //   name: "evntSprc",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "evntItemHdlStrCnt",
+  //   name: "evntItemHdlStrCnt",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
+  // {
+  //   header: "saleStrCnt",
+  //   name: "saleStrCnt",
+  //   textAlign: "center",
+  //   defaultVisible: false,
+  // },
   {
-    name: "evntCst",
-    header: "evntCst",
-    textAlign: "center",
-  },
-  {
-    name: "evntSprc",
-    header: "evntSprc",
-    textAlign: "center",
-  },
-  {
-    name: "evntItemHdlStrCnt",
-    header: "evntItemHdlStrCnt",
-    textAlign: "center",
-  },
-  {
-    name: "saleStrCnt",
-    header: "saleStrCnt",
-    textAlign: "center",
-  },
-  {
+    header: "비율",
     name: "ratio",
-    header: "ratio",
     textAlign: "center",
+    defaultVisible: true,
   },
 ];
 
@@ -218,21 +279,39 @@ const groupColumn = {
     value === "true" ? "Yes" : value === "false" ? "No" : value,
 };
 
-const RGDTable = () => {
-  const [selected, setSelected] = useState(options[0]);
+const listColumns = columns.slice(1, columns.length).map((item, index) => {
+  return {
+    ...item,
+    value: item.name,
+    label: item.header,
+    index,
+    key: item.name,
+  };
+});
 
-  const handleChange = (value) => {
-    setSelected(value);
+const RGDTable = () => {
+  const [pageSize, setPageSize] = useState(options[0]);
+
+  const [activeColumns, setActiveColumns] = useState(
+    listColumns.filter((item) => item.defaultVisible === true)
+  );
+
+  const handleChangePageSize = (value) => {
+    setPageSize(value);
+  };
+  const handleChangeActiveColumns = (value) => {
+    setActiveColumns(value.sort((a, b) => a.index - b.index));
+    console.log(value);
   };
 
   const dataSource = useCallback(
-    async ({ skip, sortInfo, limit = selected.value }) => {
+    async ({ skip, sortInfo, limit = pageSize.value }) => {
       console.log(skip, limit);
 
       return new Promise((resolve, reject) => {
         resolve({
           count: 100,
-          data: data.data.content.slice(skip, limit + skip),
+          data: [...data.data.content].slice(skip, limit + skip),
         });
       });
 
@@ -251,33 +330,58 @@ const RGDTable = () => {
       //   });
       // });
     },
-    [selected]
+    [pageSize]
   );
 
   return (
     <div className="demo-react-data-grid">
       <div className="react-select-wrapper">
+        <div className="export-button react-select">
+          <CSVLink
+            data={data.data.content.slice(0, pageSize.value)}
+            headers={activeColumns}
+            filename="data.csv"
+            target="_blank"
+          >
+            <img src="https://img.icons8.com/color/256/microsoft-excel-2019--v1.png" />
+            <label>다운로드</label>
+          </CSVLink>
+        </div>
         <Select
-          value={selected}
-          onChange={handleChange}
+          className="react-select page-size-select"
+          value={pageSize}
           options={options}
-          className="react-select"
+          onChange={handleChangePageSize}
+        />
+        <Select
+          isMulti
+          className="react-select active-columns-select"
+          classNamePrefix="active-columns-select"
+          placeholder="항목보기"
+          value={activeColumns}
+          closeMenuOnSelect={false}
+          hideSelectedOptions={false}
+          controlShouldRenderValue={false}
+          options={listColumns}
+          onChange={handleChangeActiveColumns}
+          components={{
+            Option: InputOption,
+          }}
         />
       </div>
       <ReactDataGrid
         idProperty="id"
+        className="data-grid-table"
         showZebraRows={false}
-        defaultFilterValue={filterValue}
-        columns={columns}
+        // defaultFilterValue={filterValue}
+        columns={activeColumns}
         dataSource={dataSource}
         reorderColumns={true}
         style={gridStyle}
         pagination
         livePagination
-        groupColumn={null}
-        defaultGroupBy={["salesDt"]}
         scrollThreshold={0.9}
-        limit={selected.value}
+        limit={pageSize.value}
       />
     </div>
   );
