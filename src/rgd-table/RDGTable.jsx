@@ -175,7 +175,7 @@ const columns = [
     name: "itemNm",
     textAlign: "center",
     defaultVisible: true,
-    minWidth: 300,
+    minWidth: 500,
   },
   {
     header: "유니 이벤트 코드",
@@ -382,6 +382,7 @@ const RGDTable = () => {
         livePagination
         scrollThreshold={0.9}
         limit={pageSize.value}
+        defaultGroupBy={["salesDt"]}
       />
     </div>
   );
