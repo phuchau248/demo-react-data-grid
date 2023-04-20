@@ -118,7 +118,7 @@ const Example = () => {
   const handleChangePageSize = (value) => {
     setPageSize(value);
   };
-  
+
   const { data, fetchNextPage, isError, isFetching, isLoading } =
     useInfiniteQuery({
       queryKey: ["table-data", columnFilters, globalFilter, sorting],
@@ -235,7 +235,7 @@ const Example = () => {
         </>
       )}
       initialState={{ density: "compact" }}
-      enableColumnActions={false}
+    //   enableColumnActions={false}
       //   enableColumnDragging={false}
       enableColumnOrdering={false}
       //   enableTopToolbar={false}
