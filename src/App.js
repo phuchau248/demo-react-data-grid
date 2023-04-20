@@ -1,12 +1,14 @@
 import "./App.css";
 import RGDTable from "./rgd-table/RDGTable";
-import InfiniteTable from "./test-table/TestTable";
+import TestTable from "./test-table/TestTable";
+import TestTable2 from "./test-table/TestTable2";
 
 function App() {
   return (
     <div className="App" style={{ margin: "20px" }}>
       {/* <RGDTable /> */}
-      <InfiniteTable />
+      <TestTable />
+      <TestTable2 />
     </div>
   );
 }

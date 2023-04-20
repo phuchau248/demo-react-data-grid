@@ -2,69 +2,112 @@ import { useState } from "react";
 import { faker } from "@faker-js/faker";
 import "react-data-grid/lib/styles.css";
 import { groupBy as rowGrouper } from "lodash";
-
+import mockData from "../rgd-table/mock.json";
 import DataGrid, { SelectColumn } from "react-data-grid";
+import "./style.scss";
 
 function rowKeyGetter(row) {
   return row.id;
 }
 
 const columns = [
-  SelectColumn,
   {
-    key: "country",
-    name: "Country",
+    name: "판매 코드",
+    key: "salesDt",
+    defaultVisible: true,
+    textAlign: "center",
   },
   {
-    key: "year",
-    name: "Year",
+    name: "공급 코드",
+    key: "suppCd",
+    textAlign: "center",
+    defaultVisible: false,
   },
   {
-    key: "sport",
-    name: "Sport",
+    name: "공급 이름",
+    key: "suppNm",
+    textAlign: "center",
+    defaultVisible: true,
   },
   {
-    key: "athlete",
-    name: "Athlete",
+    name: "구매 조건 코드",
+    key: "purchCondCd",
+    textAlign: "center",
+    defaultVisible: false,
   },
   {
-    key: "gold",
-    name: "Gold",
-    groupFormatter({ childRows }) {
-      return <>{childRows.reduce((prev, { gold }) => prev + gold, 0)}</>;
-    },
+    name: "구매조건명",
+    key: "purchCondNm",
+    textAlign: "center",
+    defaultVisible: true,
   },
   {
-    key: "silver",
-    name: "Silver",
-    groupFormatter({ childRows }) {
-      return <>{childRows.reduce((prev, { silver }) => prev + silver, 0)}</>;
-    },
+    name: "아이템 코드",
+    key: "itemCd",
+    textAlign: "center",
+    defaultVisible: true,
   },
   {
-    key: "bronze",
-    name: "Bronze",
-    groupFormatter({ childRows }) {
-      return <>{childRows.reduce((prev, { silver }) => prev + silver, 0)}</>;
-    },
+    name: "상품명",
+    key: "itemNm",
+    textAlign: "center",
+    defaultVisible: true,
+    minWidth: 300,
   },
   {
-    key: "total",
-    name: "Total",
-    formatter({ row }) {
-      return <>{row.gold + row.silver + row.bronze}</>;
-    },
-    groupFormatter({ childRows }) {
-      return (
-        <>
-          {childRows.reduce(
-            (prev, row) => prev + row.gold + row.silver + row.bronze,
-            0
-          )}
-        </>
+    name: "유니 이벤트 코드",
+    key: "uniEvntCd",
+    textAlign: "center",
+    defaultVisible: false,
+  },
+  {
+    name: "유니 이벤트 이름",
+    key: "uniEvntSpNm",
+    textAlign: "center",
+    defaultVisible: true,
+  },
+  {
+    name: "이벤트 유형 이름",
+    key: "evntTypeNm",
+    textAlign: "center",
+    defaultVisible: true,
+    formatter(data) {
+      return data?.value ? (
+        data?.value === "2+1" ? (
+          <div className="data-chip-2">{data?.value}</div>
+        ) : (
+          <div className="data-chip">{data?.value}</div>
+        )
+      ) : (
+        "-"
       );
     },
   },
+
+  // {
+  //   key: "bronze",
+  //   name: "Bronze",
+  //   groupFormatter({ childRows }) {
+  //     return <>{childRows.reduce((prev, { silver }) => prev + silver, 0)}</>;
+  //   },
+  // },
+  // {
+  //   key: "total",
+  //   name: "Total",
+  //   formatter({ row }) {
+  //     return <>{row.gold + row.silver + row.bronze}</>;
+  //   },
+  //   groupFormatter({ childRows }) {
+  //     return (
+  //       <>
+  //         {childRows.reduce(
+  //           (prev, row) => prev + row.gold + row.silver + row.bronze,
+  //           0
+  //         )}
+  //       </>
+  //     );
+  //   },
+  // },
 ];
 
 const sports = [
@@ -101,8 +144,7 @@ const sports = [
 function createFakeRowObjectData(index) {
   return {
     id: index,
-    year: 2015 + faker.datatype.number(3),
-    country: faker.address.country(),
+    country: index % 2 ? "Vietnam" : "Japan",
     sport: sports[faker.datatype.number(sports.length - 1)],
     athlete: faker.name.fullName(),
     gold: faker.datatype.number(5),
@@ -115,7 +157,7 @@ function createRows(numberOfRows) {
   const rows = [];
 
   for (let i = 0; i < numberOfRows; i++) {
-    rows[i] = createFakeRowObjectData(i);
+    rows[i] = mockData.data.content[i];
   }
 
   return rows;
@@ -133,35 +175,28 @@ function loadMoreRows(newRowsCount, length) {
     const newRows = [];
 
     for (let i = 0; i < newRowsCount; i++) {
-      newRows[i] = createFakeRowObjectData(i + length);
+      newRows[i] = mockData.data.content[i + length];
     }
 
     setTimeout(() => resolve(newRows), 1000);
   });
 }
 
-const options = ["country", "year", "sport", "athlete"];
+const options = ["country", "sport", "athlete"];
 
-export default function InfiniteScrolling({ direction }) {
-  const [rows, setRows] = useState(() => createRows(50));
+export default function TestTable({ direction }) {
+  const [rows, setRows] = useState(() => createRows(10));
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([
-    options[0],
-    options[1],
-  ]);
+  const [selectedOptions, setSelectedOptions] = useState([options[0]]);
 
   const [expandedGroupIds, setExpandedGroupIds] = useState(
-    () =>
-      new Set(["United States of America", "United States of America__2015"])
+    () => new Set(["Iraq", "Iraq_2018"])
   );
 
   async function handleScroll(event) {
     if (isLoading || !isAtBottom(event)) return;
-
     setIsLoading(true);
-
     const newRows = await loadMoreRows(50, rows.length);
-
     setRows([...rows, ...newRows]);
     setIsLoading(false);
   }
@@ -169,6 +204,7 @@ export default function InfiniteScrolling({ direction }) {
   return (
     <>
       <DataGrid
+        className="data-grid"
         columns={columns}
         rows={rows}
         rowKeyGetter={rowKeyGetter}
