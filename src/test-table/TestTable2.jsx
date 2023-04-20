@@ -235,9 +235,10 @@ const Example = () => {
         </>
       )}
       initialState={{ density: "compact" }}
-    //   enableColumnActions={false}
+      //   enableColumnActions={false}
       //   enableColumnDragging={false}
       enableColumnOrdering={false}
+      enablePinning
       //   enableTopToolbar={false}
       enableBottomToolbar={false}
       enableGlobalFilter={false}
