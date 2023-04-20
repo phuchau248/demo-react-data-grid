@@ -1,7 +1,67 @@
-.data-grid {
-  background: white;
-  .rdg-cell {
-    background: white;
-    color: black;
+.data-chip {
+  width: fit-content;
+  padding: 5px;
+  margin: auto;
+  background: #ddf5ee;
+  color: #55af8e;
+  border-radius: 25%;
+}
+.data-chip-2 {
+  width: fit-content;
+  padding: 5px;
+  margin: auto;
+  background: #ebeafd;
+  border-radius: 25%;
+  color: #8f83d7;
+}
+
+.react-btn {
+  margin-left: 10px;
+  float: right;
+  text-align: start;
+}
+.export-button:hover {
+  background-color: hsl(0, 0%, 98%);
+}
+.export-button:active {
+  // border-color: #2684ff;
+  // border-width: 2px;
+  background-color: hsl(0, 0%, 90%);
+}
+.export-button {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  min-height: 38px;
+  position: relative;
+  transition: all 100ms;
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  width: 100px;
+  a {
+    display: flex;
+    gap: 5px;
+    text-decoration: none;
+    color: hsl(0, 0%, 20%);
+
+    img {
+      width: 22px;
+      height: 22px;
+    }
   }
+}
+.Mui-TableHeadCell-Content-Wrapper {
+  font-weight: 500;
+  color: black;
+}
+.MuiToolbar-root {
+  overflow: visible !important;
+  z-index: 3!important;
 }
