@@ -57,11 +57,31 @@
     }
   }
 }
-.Mui-TableHeadCell-Content-Wrapper {
-  font-weight: 500;
-  color: black;
-}
+
 .MuiToolbar-root {
   overflow: visible !important;
-  z-index: 3!important;
+  z-index: 3 !important;
+}
+
+.MuiTableRow-head {
+  background: rgb(247, 248, 250) !important;
+  .MuiTableCell-head {
+    padding-bottom: 6px;
+    padding-top: 10px;
+  }
+}
+.Mui-TableHeadCell-Content {
+  .Mui-TableHeadCell-Content-Labels {
+    padding-left: 0;
+    margin-right: 24px;
+  }
+  .Mui-TableHeadCell-Content-Wrapper {
+    font-weight: 500;
+    color: black;
+    line-height: 2.2em;
+  }
+  .Mui-TableHeadCell-Content-Actions {
+    position: absolute;
+    right: 0;
+  }
 }

@@ -22,43 +22,103 @@ const columns = [
   {
     header: "판매 코드",
     accessorKey: "salesDt",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "공급 코드",
     accessorKey: "suppCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "공급 이름",
     accessorKey: "suppNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "구매 조건 코드",
     accessorKey: "purchCondCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "구매조건명",
     accessorKey: "purchCondNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "아이템 코드",
     accessorKey: "itemCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "상품명",
     accessorKey: "itemNm",
     size: 300,
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "유니 이벤트 코드",
     accessorKey: "uniEvntCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "유니 이벤트 이름",
     accessorKey: "uniEvntSpNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "이벤트 유형 이름",
     accessorKey: "evntTypeNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
     Cell: ({ cell }) => {
       const value = cell.getValue();
       return value ? (
@@ -76,26 +136,64 @@ const columns = [
     header: "이벤트 그룹 이름",
     accessorKey: "evntGrpNm",
     size: 300,
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "행사 시작일",
     accessorKey: "evntDurBeginDt",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "이벤트 종료 날짜",
     accessorKey: "evntDurEndDt",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "판매량",
     accessorKey: "salesAmt",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
   {
     header: "판매수량",
     accessorKey: "salesQty",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+    aggregationFn: "sum",
+    AggregatedCell: ({ cell }) => <div>Total: {cell.getValue()}</div>,
   },
   {
     header: "비율",
     accessorKey: "ratio",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
   },
 ];
 
@@ -243,7 +341,7 @@ const Example = () => {
       enableColumnOrdering={false}
       enablePinning
       //   enableTopToolbar={false}
-      enableBottomToolbar={false}
+      // enableBottomToolbar={false}
       enableGlobalFilter={false}
       //   muiToolbarAlertBannerProps={
       //     isError
@@ -256,11 +354,11 @@ const Example = () => {
       //   onColumnFiltersChange={setColumnFilters}
       //   onGlobalFilterChange={setGlobalFilter}
       onSortingChange={setSorting}
-      //   renderBottomToolbarCustomActions={() => (
-      //     <Typography>
-      //       Fetched {totalFetched} of {totalDBRowCount} total rows.
-      //     </Typography>
-      //   )}
+      renderBottomToolbarCustomActions={() => (
+        <div>
+          Fetched {totalFetched} of {totalDBRowCount} total rows.
+        </div>
+      )}
       state={{
         columnFilters,
         globalFilter,
