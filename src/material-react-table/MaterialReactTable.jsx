@@ -5,7 +5,6 @@ import {
 } from "@tanstack/react-query";
 import MaterialReactTable, {
   MRT_ShowHideColumnsButton,
-  MRT_ToggleGlobalFilterButton,
 } from "material-react-table";
 import React, {
   useCallback,
@@ -14,10 +13,10 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { CSVLink } from "react-csv";
+import Select from "react-select";
 import mockData from "../rgd-table/mock.json";
 import "./style.scss";
-import { CSVLink } from "react-csv";
-import Select, { components } from "react-select";
 
 const columns = [
   {
@@ -62,7 +61,6 @@ const columns = [
     accessorKey: "evntTypeNm",
     Cell: ({ cell }) => {
       const value = cell.getValue();
-      console.log(value);
       return value ? (
         value === "2+1" ? (
           <div className="data-chip-2">{value}</div>
@@ -101,7 +99,6 @@ const columns = [
   },
 ];
 
-const fetchSize = 25;
 const options = [
   { value: 20, label: "20 Record" },
   { value: 50, label: "50 Record" },
@@ -167,6 +164,7 @@ const Example = () => {
     (containerRefElement) => {
       if (containerRefElement) {
         const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
+        console.log(scrollHeight - scrollTop - clientHeight);
         if (
           scrollHeight - scrollTop - clientHeight < 10 &&
           !isFetching
@@ -194,6 +192,10 @@ const Example = () => {
     fetchMoreOnBottomReached(tableContainerRef.current);
   }, [fetchMoreOnBottomReached]);
 
+  const onChangeGroup = () => {
+    console.log("change");
+  };
+
   return (
     <MaterialReactTable
       enableGrouping
@@ -204,11 +206,9 @@ const Example = () => {
       //   manualFiltering
       //   manualSorting
       muiTableContainerProps={{
-        ref: tableContainerRef, //get access to the table container element
-        sx: { maxHeight: "600px" }, //give the table a max height
-        onScroll: (
-          event //add an event listener to the table container element
-        ) => fetchMoreOnBottomReached(event.target),
+        ref: tableContainerRef,
+        sx: { maxHeight: "600px" },
+        onScroll: (event) => fetchMoreOnBottomReached(event.target),
       }}
       renderToolbarInternalActions={({ table }) => (
         <>
@@ -228,7 +228,10 @@ const Example = () => {
               filename="data.csv"
               target="_blank"
             >
-              <img src="https://img.icons8.com/color/256/microsoft-excel-2019--v1.png" />
+              <img
+                alt="img"
+                src="https://img.icons8.com/color/256/microsoft-excel-2019--v1.png"
+              />
               <label>다운로드</label>
             </CSVLink>
           </div>
@@ -274,10 +277,10 @@ const Example = () => {
 
 const queryClient = new QueryClient();
 
-const ExampleWithReactQueryProvider = () => (
+const Table = () => (
   <QueryClientProvider client={queryClient}>
     <Example />
   </QueryClientProvider>
 );
 
-export default ExampleWithReactQueryProvider;
+export default Table;
