@@ -5,8 +5,8 @@ import MaterialReactTable from "./material-react-table/MaterialReactTable";
 function App() {
   return (
     <div className="App" style={{ margin: "20px" }}>
-      {/* <RGDTable /> */}
-      <MaterialReactTable />
+      <RGDTable />
+      {/* <MaterialReactTable /> */}
     </div>
   );
 }

@@ -69,131 +69,93 @@ const filterValue = [
 
 const columns = [
   {
-    name: "id",
-    header: "Id",
-    defaultVisible: false,
-    type: "number",
-    maxWidth: 40,
-  },
-  {
-    header: "판매 코드",
+    header: "기준일",
     name: "salesDt",
-    defaultVisible: true,
     textAlign: "center",
-    // rowspan: ({ value, dataSourceArray, rowIndex, column }) => {
-    //   let rowspan = 1;
-    //   const prevData = dataSourceArray[rowIndex - 1];
-    //   if (
-    //     prevData &&
-    //     !!prevData[column.name] &&
-    //     !!value &&
-    //     prevData[column.name] === value
-    //   ) {
-    //     return rowspan;
-    //   }
-    //   let currentRowIndex = rowIndex + 1;
-    //   while (
-    //     !!dataSourceArray[currentRowIndex] &&
-    //     !!value &&
-    //     dataSourceArray[currentRowIndex][column.name] === value
-    //   ) {
-    //     rowspan++;
-    //     currentRowIndex++;
-    //   }
-
-    //   return rowspan;
-    // },
+    render: (data) => {
+      console.log(data);
+      const date = data.value;
+      return `${date.substring(0, 4)}.${date.substring(4, 6)}.${date.substring(
+        6,
+        8
+      )}.`;
+    },
   },
   {
-    header: "공급 코드",
+    header: "거래처코드",
     name: "suppCd",
     textAlign: "center",
-    defaultVisible: false,
   },
   {
-    header: "공급 이름",
+    header: "거래처명",
     name: "suppNm",
     textAlign: "center",
-    defaultVisible: true,
   },
   {
-    header: "구매 조건 코드",
+    header: "구매조건코드",
     name: "purchCondCd",
     textAlign: "center",
-    defaultVisible: false,
   },
   {
-    header: "구매조건명",
+    header: "구매조건코드명",
     name: "purchCondNm",
     textAlign: "center",
-    defaultVisible: true,
   },
-  // {
-  //   header: "itemLclsCd",
-  //   name: "itemLclsCd",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "itemLclsNm",
-  //   name: "itemLclsNm",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "itemMclsCd",
-  //   name: "itemMclsCd",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "itemMclsNm",
-  //   name: "itemMclsNm",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "itemSclsCd",
-  //   name: "itemSclsCd",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "itemSclsNm",
-  //   name: "itemSclsNm",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
   {
-    header: "아이템 코드",
+    header: "대분류코드",
+    name: "itemLclsCd",
+    textAlign: "center",
+  },
+  {
+    header: "대분류명",
+    name: "itemLclsNm",
+    textAlign: "center",
+  },
+  {
+    header: "중분류코드",
+    name: "itemMclsCd",
+    textAlign: "center",
+  },
+  {
+    header: "중분류코드명",
+    name: "itemMclsNm",
+    textAlign: "center",
+  },
+  {
+    header: "소분류코드",
+    name: "itemSclsCd",
+    textAlign: "center",
+  },
+  {
+    header: "소분류코드명",
+    name: "itemSclsNm",
+    textAlign: "center",
+  },
+  {
+    header: "상품코드",
     name: "itemCd",
     textAlign: "center",
-    defaultVisible: true,
   },
   {
     header: "상품명",
     name: "itemNm",
+    size: 300,
     textAlign: "center",
-    defaultVisible: true,
-    minWidth: 300,
   },
   {
-    header: "유니 이벤트 코드",
+    header: "행사코드",
     name: "uniEvntCd",
     textAlign: "center",
-    defaultVisible: false,
   },
   {
-    header: "유니 이벤트 이름",
+    header: "행사구분명",
     name: "uniEvntSpNm",
     textAlign: "center",
-    defaultVisible: true,
   },
   {
-    header: "이벤트 유형 이름",
+    header: "행사유형명",
     name: "evntTypeNm",
     textAlign: "center",
-    defaultVisible: true,
     render: (data) => {
       return data?.value ? (
         data?.value === "2+1" ? (
@@ -207,64 +169,72 @@ const columns = [
     },
   },
   {
-    header: "이벤트 그룹 이름",
+    header: "행사그룹명",
     name: "evntGrpNm",
+    size: 300,
     textAlign: "center",
-    defaultVisible: false,
   },
   {
-    header: "행사 시작일",
-    name: "evntDurBeginDt",
-    textAlign: "center",
-    defaultVisible: true,
-  },
-  {
-    header: "이벤트 종료 날짜",
+    header: "행사기간",
     name: "evntDurEndDt",
     textAlign: "center",
-    defaultVisible: true,
+    render: (data) => {
+      console.log(data);
+      const begin = row.original?.evntDurBeginDt;
+      const end = row.original?.evntDurEndDt;
+      return `${begin.substring(0, 4)}.${begin.substring(
+        4,
+        6
+      )}.${begin.substring(6, 8)}.~${begin.substring(0, 4)}.${begin.substring(
+        4,
+        6
+      )}.${begin.substring(6, 8)}.`;
+    },
   },
   {
-    header: "판매량",
+    header: "매출금액",
     name: "salesAmt",
     textAlign: "center",
-    defaultVisible: true,
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+    },
   },
   {
-    header: "판매수량",
+    header: "매출수량",
     name: "salesQty",
     textAlign: "center",
-    defaultVisible: true,
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+    },
   },
-  // {
-  //   header: "evntCst",
-  //   name: "evntCst",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "evntSprc",
-  //   name: "evntSprc",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "evntItemHdlStrCnt",
-  //   name: "evntItemHdlStrCnt",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
-  // {
-  //   header: "saleStrCnt",
-  //   name: "saleStrCnt",
-  //   textAlign: "center",
-  //   defaultVisible: false,
-  // },
   {
-    header: "비율",
+    header: "행사원가",
+    name: "evntCst",
+    textAlign: "center",
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+    },
+  },
+  {
+    header: "취급점포수(개)",
+    name: "evntItemHdlStrCnt",
+    textAlign: "center",
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+    },
+  },
+  {
+    header: "전체점포수(개)",
+    name: "saleStrCnt",
+    textAlign: "center",
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+    },
+  },
+  {
+    header: "취급율(%)",
     name: "ratio",
     textAlign: "center",
-    defaultVisible: true,
   },
 ];
 
