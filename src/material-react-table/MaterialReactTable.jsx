@@ -20,7 +20,7 @@ import "./style.scss";
 
 const columns = [
   {
-    header: "판매 코드",
+    header: "기준일",
     accessorKey: "salesDt",
     muiTableHeadCellProps: {
       align: "center",
@@ -28,9 +28,16 @@ const columns = [
     muiTableBodyCellProps: {
       align: "center",
     },
+    Cell: ({ cell }) => {
+      const date = cell.getValue();
+      return `${date.substring(0, 4)}.${date.substring(4, 6)}.${date.substring(
+        6,
+        8
+      )}.`;
+    },
   },
   {
-    header: "공급 코드",
+    header: "거래처코드",
     accessorKey: "suppCd",
     muiTableHeadCellProps: {
       align: "center",
@@ -40,7 +47,7 @@ const columns = [
     },
   },
   {
-    header: "공급 이름",
+    header: "거래처명",
     accessorKey: "suppNm",
     muiTableHeadCellProps: {
       align: "center",
@@ -50,7 +57,7 @@ const columns = [
     },
   },
   {
-    header: "구매 조건 코드",
+    header: "구매조건코드",
     accessorKey: "purchCondCd",
     muiTableHeadCellProps: {
       align: "center",
@@ -60,7 +67,7 @@ const columns = [
     },
   },
   {
-    header: "구매조건명",
+    header: "구매조건코드명",
     accessorKey: "purchCondNm",
     muiTableHeadCellProps: {
       align: "center",
@@ -70,7 +77,67 @@ const columns = [
     },
   },
   {
-    header: "아이템 코드",
+    header: "대분류코드",
+    accessorKey: "itemLclsCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+  },
+  {
+    header: "대분류명",
+    accessorKey: "itemLclsNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+  },
+  {
+    header: "중분류코드",
+    accessorKey: "itemMclsCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+  },
+  {
+    header: "중분류코드명",
+    accessorKey: "itemMclsNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+  },
+  {
+    header: "소분류코드",
+    accessorKey: "itemSclsCd",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+  },
+  {
+    header: "소분류코드명",
+    accessorKey: "itemSclsNm",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+  },
+  {
+    header: "상품코드",
     accessorKey: "itemCd",
     muiTableHeadCellProps: {
       align: "center",
@@ -91,7 +158,7 @@ const columns = [
     },
   },
   {
-    header: "유니 이벤트 코드",
+    header: "행사코드",
     accessorKey: "uniEvntCd",
     muiTableHeadCellProps: {
       align: "center",
@@ -101,7 +168,7 @@ const columns = [
     },
   },
   {
-    header: "유니 이벤트 이름",
+    header: "행사구분명",
     accessorKey: "uniEvntSpNm",
     muiTableHeadCellProps: {
       align: "center",
@@ -111,7 +178,7 @@ const columns = [
     },
   },
   {
-    header: "이벤트 유형 이름",
+    header: "행사유형명",
     accessorKey: "evntTypeNm",
     muiTableHeadCellProps: {
       align: "center",
@@ -133,7 +200,7 @@ const columns = [
     },
   },
   {
-    header: "이벤트 그룹 이름",
+    header: "행사그룹명",
     accessorKey: "evntGrpNm",
     size: 300,
     muiTableHeadCellProps: {
@@ -144,17 +211,7 @@ const columns = [
     },
   },
   {
-    header: "행사 시작일",
-    accessorKey: "evntDurBeginDt",
-    muiTableHeadCellProps: {
-      align: "center",
-    },
-    muiTableBodyCellProps: {
-      align: "center",
-    },
-  },
-  {
-    header: "이벤트 종료 날짜",
+    header: "행사기간",
     accessorKey: "evntDurEndDt",
     muiTableHeadCellProps: {
       align: "center",
@@ -162,9 +219,20 @@ const columns = [
     muiTableBodyCellProps: {
       align: "center",
     },
+    Cell: ({ row }) => {
+      const begin = row.original?.evntDurBeginDt;
+      const end = row.original?.evntDurEndDt;
+      return `${begin.substring(0, 4)}.${begin.substring(
+        4,
+        6
+      )}.${begin.substring(6, 8)}.~${begin.substring(0, 4)}.${begin.substring(
+        4,
+        6
+      )}.${begin.substring(6, 8)}.`;
+    },
   },
   {
-    header: "판매량",
+    header: "매출금액",
     accessorKey: "salesAmt",
     muiTableHeadCellProps: {
       align: "center",
@@ -172,9 +240,15 @@ const columns = [
     muiTableBodyCellProps: {
       align: "center",
     },
+    Cell: ({ cell }) => {
+      return Number(cell.getValue()).toLocaleString("ko-KR");
+    },
+    AggregatedCell: ({ cell }) => (
+      <div>Total: {cell.getValue().toLocaleString("ko-KR")}</div>
+    ),
   },
   {
-    header: "판매수량",
+    header: "매출수량",
     accessorKey: "salesQty",
     muiTableHeadCellProps: {
       align: "center",
@@ -182,11 +256,63 @@ const columns = [
     muiTableBodyCellProps: {
       align: "center",
     },
-    aggregationFn: "sum",
-    AggregatedCell: ({ cell }) => <div>Total: {cell.getValue()}</div>,
+    Cell: ({ cell }) => {
+      return Number(cell.getValue()).toLocaleString("ko-KR");
+    },
+    AggregatedCell: ({ cell }) => (
+      <div>Total: {cell.getValue().toLocaleString("ko-KR")}</div>
+    ),
   },
   {
-    header: "비율",
+    header: "행사원가",
+    accessorKey: "evntCst",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+    Cell: ({ cell }) => {
+      return Number(cell.getValue()).toLocaleString("ko-KR");
+    },
+    AggregatedCell: ({ cell }) => (
+      <div>Total: {cell.getValue().toLocaleString("ko-KR")}</div>
+    ),
+  },
+  {
+    header: "취급점포수(개)",
+    accessorKey: "evntItemHdlStrCnt",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+    Cell: ({ cell }) => {
+      return Number(cell.getValue()).toLocaleString("ko-KR");
+    },
+    AggregatedCell: ({ cell }) => (
+      <div>Total: {cell.getValue().toLocaleString("ko-KR")}</div>
+    ),
+  },
+  {
+    header: "전체점포수(개)",
+    accessorKey: "saleStrCnt",
+    muiTableHeadCellProps: {
+      align: "center",
+    },
+    muiTableBodyCellProps: {
+      align: "center",
+    },
+    Cell: ({ cell }) => {
+      return Number(cell.getValue()).toLocaleString("ko-KR");
+    },
+    AggregatedCell: ({ cell }) => (
+      <div>Total: {cell.getValue().toLocaleString("ko-KR")}</div>
+    ),
+  },
+  {
+    header: "취급율(%)",
     accessorKey: "ratio",
     muiTableHeadCellProps: {
       align: "center",
@@ -202,6 +328,7 @@ const options = [
   { value: 50, label: "50 Record" },
   { value: 100, label: "100 Record" },
 ];
+
 const Example = () => {
   const tableContainerRef = useRef(null); //we can get access to the underlying TableContainer element and react to its scroll events
   const rowVirtualizerInstanceRef = useRef(null); //we can get access to the underlying Virtualizer instance and call its scrollToIndex method
@@ -335,7 +462,11 @@ const Example = () => {
           </div>
         </>
       )}
-      initialState={{ density: "compact" }}
+      initialState={{
+        grouping: ["salesDt"],
+        density: "compact",
+        expanded: true,
+      }}
       //   enableColumnActions={false}
       //   enableColumnDragging={false}
       enableColumnOrdering={false}
