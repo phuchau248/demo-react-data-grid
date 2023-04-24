@@ -69,11 +69,18 @@ const filterValue = [
 
 const columns = [
   {
+    name: "id",
+    header: "Id",
+    defaultVisible: false,
+    type: "number",
+    maxWidth: 40,
+  },
+  {
     header: "기준일",
     name: "salesDt",
     textAlign: "center",
+    defaultVisible: true,
     render: (data) => {
-      console.log(data);
       const date = data.value;
       return `${date.substring(0, 4)}.${date.substring(4, 6)}.${date.substring(
         6,
@@ -85,77 +92,94 @@ const columns = [
     header: "거래처코드",
     name: "suppCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "거래처명",
     name: "suppNm",
     textAlign: "center",
+    defaultVisible: true,
+    minWidth: 200,
   },
   {
     header: "구매조건코드",
     name: "purchCondCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "구매조건코드명",
     name: "purchCondNm",
     textAlign: "center",
+    defaultVisible: true,
+    minWidth: 200,
   },
   {
     header: "대분류코드",
     name: "itemLclsCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "대분류명",
     name: "itemLclsNm",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "중분류코드",
     name: "itemMclsCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "중분류코드명",
     name: "itemMclsNm",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "소분류코드",
     name: "itemSclsCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "소분류코드명",
     name: "itemSclsNm",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "상품코드",
     name: "itemCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "상품명",
     name: "itemNm",
-    size: 300,
+    minWidth: 300,
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "행사코드",
     name: "uniEvntCd",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "행사구분명",
     name: "uniEvntSpNm",
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "행사유형명",
     name: "evntTypeNm",
     textAlign: "center",
+    defaultVisible: true,
     render: (data) => {
       return data?.value ? (
         data?.value === "2+1" ? (
@@ -164,77 +188,146 @@ const columns = [
           <div className="data-chip">{data?.value}</div>
         )
       ) : (
-        "-"
+        ""
       );
     },
   },
   {
     header: "행사그룹명",
     name: "evntGrpNm",
-    size: 300,
+    minWidth: 300,
     textAlign: "center",
+    defaultVisible: true,
   },
   {
     header: "행사기간",
     name: "evntDurEndDt",
     textAlign: "center",
-    render: (data) => {
+    defaultVisible: true,
+    minWidth: 300,
+    render: ({ data }) => {
       console.log(data);
-      const begin = row.original?.evntDurBeginDt;
-      const end = row.original?.evntDurEndDt;
-      return `${begin.substring(0, 4)}.${begin.substring(
-        4,
-        6
-      )}.${begin.substring(6, 8)}.~${begin.substring(0, 4)}.${begin.substring(
-        4,
-        6
-      )}.${begin.substring(6, 8)}.`;
+      const begin = data?.evntDurBeginDt;
+      const end = data?.evntDurEndDt;
+      return (
+        begin &&
+        end &&
+        `${begin.substring(0, 4)}.${begin.substring(4, 6)}.${begin.substring(
+          6,
+          8
+        )}.~${end.substring(0, 4)}.${end.substring(4, 6)}.${end.substring(
+          6,
+          8
+        )}.`
+      );
     },
   },
   {
     header: "매출금액",
     name: "salesAmt",
     textAlign: "center",
-    render: (data) => {
-      return Number(data?.value).toLocaleString("ko-KR");
+    defaultVisible: true,
+    groupSummaryReducer: {
+      initialValue: 0,
+      reducer: (a, b) => a + b,
+    },
+    render: ({ value, data }) => {
+      return data.__group ? (
+        <React.Fragment>
+          <b>Total: </b>
+          {Number(value).toLocaleString("ko-KR")}{" "}
+        </React.Fragment>
+      ) : (
+        Number(value).toLocaleString("ko-KR")
+      );
     },
   },
+
   {
     header: "매출수량",
     name: "salesQty",
     textAlign: "center",
-    render: (data) => {
-      return Number(data?.value).toLocaleString("ko-KR");
+    defaultVisible: true,
+    groupSummaryReducer: {
+      initialValue: 0,
+      reducer: (a, b) => a + b,
+    },
+    render: ({ value, data }) => {
+      return data.__group ? (
+        <React.Fragment>
+          <b>Total: </b>
+          {Number(value).toLocaleString("ko-KR")}{" "}
+        </React.Fragment>
+      ) : (
+        Number(value).toLocaleString("ko-KR")
+      );
     },
   },
   {
     header: "행사원가",
     name: "evntCst",
     textAlign: "center",
-    render: (data) => {
-      return Number(data?.value).toLocaleString("ko-KR");
+    defaultVisible: true,
+    groupSummaryReducer: {
+      initialValue: 0,
+      reducer: (a, b) => a + b,
+    },
+    render: ({ value, data }) => {
+      return data.__group ? (
+        <React.Fragment>
+          <b>Total: </b>
+          {Number(value).toLocaleString("ko-KR")}{" "}
+        </React.Fragment>
+      ) : (
+        Number(value).toLocaleString("ko-KR")
+      );
     },
   },
   {
     header: "취급점포수(개)",
     name: "evntItemHdlStrCnt",
     textAlign: "center",
-    render: (data) => {
-      return Number(data?.value).toLocaleString("ko-KR");
+    defaultVisible: true,
+    groupSummaryReducer: {
+      initialValue: 0,
+      reducer: (a, b) => a + b,
+    },
+    render: ({ value, data }) => {
+      return data.__group ? (
+        <React.Fragment>
+          <b>Total: </b>
+          {Number(value).toLocaleString("ko-KR")}{" "}
+        </React.Fragment>
+      ) : (
+        Number(value).toLocaleString("ko-KR")
+      );
     },
   },
   {
     header: "전체점포수(개)",
     name: "saleStrCnt",
     textAlign: "center",
-    render: (data) => {
-      return Number(data?.value).toLocaleString("ko-KR");
+    defaultVisible: true,
+    groupSummaryReducer: {
+      initialValue: 0,
+      reducer: (a, b) => a + b,
+    },
+    render: ({ value, data }) => {
+      return data.__group ? (
+        <React.Fragment>
+          <b>Total: </b>
+          {Number(value).toLocaleString("ko-KR")}{" "}
+        </React.Fragment>
+      ) : (
+        Number(value).toLocaleString("ko-KR")
+      );
     },
   },
   {
     header: "취급율(%)",
     name: "ratio",
     textAlign: "center",
+    defaultVisible: true,
   },
 ];
 
@@ -344,6 +437,8 @@ const RGDTable = () => {
         className="data-grid-table"
         showZebraRows={false}
         // defaultFilterValue={filterValue}
+        defaultGroupBy={["salesDt"]}
+        groupColumn={groupColumn}
         columns={activeColumns}
         dataSource={dataSource}
         reorderColumns={true}
