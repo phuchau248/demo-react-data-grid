@@ -353,55 +353,47 @@ const listColumns = columns.slice(1, columns.length).map((item, index) => {
 });
 
 const RGDTable = () => {
-  const [pageSize, setPageSize] = useState(options[0]);
-
   const [activeColumns, setActiveColumns] = useState(
     listColumns.filter((item) => item.defaultVisible === true)
   );
 
-  const handleChangePageSize = (value) => {
-    setPageSize(value);
-  };
   const handleChangeActiveColumns = (value) => {
     setActiveColumns(value.sort((a, b) => a.index - b.index));
     console.log(value);
   };
 
-  const dataSource = useCallback(
-    async ({ skip, sortInfo, limit = pageSize.value }) => {
-      console.log(skip, limit);
+  const dataSource = useCallback(async ({ skip, sortInfo, limit }) => {
+    console.log(skip, limit);
 
-      return new Promise((resolve, reject) => {
-        resolve({
-          count: 100,
-          data: [...data.data.content].slice(skip, limit + skip),
-        });
+    return new Promise((resolve, reject) => {
+      resolve({
+        count: 100,
+        data: [...data.data.content].slice(skip, limit + skip),
       });
+    });
 
-      // const a = fetch(
-      //   "https://demos.reactdatagrid.io/api/v1/contacts" +
-      //     "?skip=" +
-      //     skip +
-      //     "&limit=" +
-      //     limit +
-      //     "&sortInfo=" +
-      //     JSON.stringify(sortInfo)
-      // ).then((response) => {
-      //   const totalCount = response.headers.get("X-Total-Count");
-      //   return response.json().then((data) => {
-      //     return { data, count: parseInt(totalCount) };
-      //   });
-      // });
-    },
-    [pageSize]
-  );
+    // const a = fetch(
+    //   "https://demos.reactdatagrid.io/api/v1/contacts" +
+    //     "?skip=" +
+    //     skip +
+    //     "&limit=" +
+    //     limit +
+    //     "&sortInfo=" +
+    //     JSON.stringify(sortInfo)
+    // ).then((response) => {
+    //   const totalCount = response.headers.get("X-Total-Count");
+    //   return response.json().then((data) => {
+    //     return { data, count: parseInt(totalCount) };
+    //   });
+    // });
+  }, []);
 
   return (
     <div className="demo-react-data-grid">
       <div className="react-select-wrapper">
         <div className="export-button react-select">
           <CSVLink
-            data={data.data.content.slice(0, pageSize.value)}
+            data={data.data.content}
             headers={activeColumns}
             filename="data.csv"
             target="_blank"
@@ -410,12 +402,7 @@ const RGDTable = () => {
             <label>다운로드</label>
           </CSVLink>
         </div>
-        <Select
-          className="react-select page-size-select"
-          value={pageSize}
-          options={options}
-          onChange={handleChangePageSize}
-        />
+
         <Select
           isMulti
           className="react-select active-columns-select"
@@ -444,9 +431,6 @@ const RGDTable = () => {
         reorderColumns={true}
         style={gridStyle}
         pagination
-        livePagination
-        scrollThreshold={0.9}
-        limit={pageSize.value}
       />
     </div>
   );
