@@ -69,6 +69,7 @@ const filterValue = [
 
 const columns = [
   {
+<<<<<<< HEAD
     name: "id",
     header: "Id",
     defaultVisible: false,
@@ -81,6 +82,13 @@ const columns = [
     textAlign: "center",
     defaultVisible: true,
     render: (data) => {
+=======
+    header: "기준일",
+    name: "salesDt",
+    textAlign: "center",
+    render: (data) => {
+      console.log(data);
+>>>>>>> 7a99c7a (update)
       const date = data.value;
       return `${date.substring(0, 4)}.${date.substring(4, 6)}.${date.substring(
         6,
@@ -92,19 +100,26 @@ const columns = [
     header: "거래처코드",
     name: "suppCd",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "거래처명",
     name: "suppNm",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     minWidth: 200,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "구매조건코드",
     name: "purchCondCd",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
   },
   {
@@ -119,67 +134,99 @@ const columns = [
     name: "itemLclsCd",
     textAlign: "center",
     defaultVisible: true,
+=======
+  },
+  {
+    header: "구매조건코드명",
+    name: "purchCondNm",
+    textAlign: "center",
+  },
+  {
+    header: "대분류코드",
+    name: "itemLclsCd",
+    textAlign: "center",
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "대분류명",
     name: "itemLclsNm",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "중분류코드",
     name: "itemMclsCd",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "중분류코드명",
     name: "itemMclsNm",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "소분류코드",
     name: "itemSclsCd",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "소분류코드명",
     name: "itemSclsNm",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "상품코드",
     name: "itemCd",
     textAlign: "center",
-    defaultVisible: true,
   },
   {
     header: "상품명",
     name: "itemNm",
+<<<<<<< HEAD
     minWidth: 300,
     textAlign: "center",
     defaultVisible: true,
+=======
+    size: 300,
+    textAlign: "center",
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "행사코드",
     name: "uniEvntCd",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
+=======
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "행사구분명",
     name: "uniEvntSpNm",
     textAlign: "center",
-    defaultVisible: true,
   },
   {
     header: "행사유형명",
     name: "evntTypeNm",
     textAlign: "center",
-    defaultVisible: true,
     render: (data) => {
       return data?.value ? (
         data?.value === "2+1" ? (
@@ -195,14 +242,20 @@ const columns = [
   {
     header: "행사그룹명",
     name: "evntGrpNm",
+<<<<<<< HEAD
     minWidth: 300,
     textAlign: "center",
     defaultVisible: true,
+=======
+    size: 300,
+    textAlign: "center",
+>>>>>>> 7a99c7a (update)
   },
   {
     header: "행사기간",
     name: "evntDurEndDt",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     minWidth: 300,
     render: ({ data }) => {
@@ -220,12 +273,26 @@ const columns = [
           8
         )}.`
       );
+=======
+    render: (data) => {
+      console.log(data);
+      const begin = row.original?.evntDurBeginDt;
+      const end = row.original?.evntDurEndDt;
+      return `${begin.substring(0, 4)}.${begin.substring(
+        4,
+        6
+      )}.${begin.substring(6, 8)}.~${begin.substring(0, 4)}.${begin.substring(
+        4,
+        6
+      )}.${begin.substring(6, 8)}.`;
+>>>>>>> 7a99c7a (update)
     },
   },
   {
     header: "매출금액",
     name: "salesAmt",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     groupSummaryReducer: {
       initialValue: 0,
@@ -240,6 +307,10 @@ const columns = [
       ) : (
         Number(value).toLocaleString("ko-KR")
       );
+=======
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+>>>>>>> 7a99c7a (update)
     },
   },
 
@@ -247,6 +318,7 @@ const columns = [
     header: "매출수량",
     name: "salesQty",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     groupSummaryReducer: {
       initialValue: 0,
@@ -261,12 +333,17 @@ const columns = [
       ) : (
         Number(value).toLocaleString("ko-KR")
       );
+=======
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+>>>>>>> 7a99c7a (update)
     },
   },
   {
     header: "행사원가",
     name: "evntCst",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     groupSummaryReducer: {
       initialValue: 0,
@@ -281,12 +358,17 @@ const columns = [
       ) : (
         Number(value).toLocaleString("ko-KR")
       );
+=======
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+>>>>>>> 7a99c7a (update)
     },
   },
   {
     header: "취급점포수(개)",
     name: "evntItemHdlStrCnt",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     groupSummaryReducer: {
       initialValue: 0,
@@ -301,12 +383,17 @@ const columns = [
       ) : (
         Number(value).toLocaleString("ko-KR")
       );
+=======
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+>>>>>>> 7a99c7a (update)
     },
   },
   {
     header: "전체점포수(개)",
     name: "saleStrCnt",
     textAlign: "center",
+<<<<<<< HEAD
     defaultVisible: true,
     groupSummaryReducer: {
       initialValue: 0,
@@ -321,13 +408,16 @@ const columns = [
       ) : (
         Number(value).toLocaleString("ko-KR")
       );
+=======
+    render: (data) => {
+      return Number(data?.value).toLocaleString("ko-KR");
+>>>>>>> 7a99c7a (update)
     },
   },
   {
     header: "취급율(%)",
     name: "ratio",
     textAlign: "center",
-    defaultVisible: true,
   },
 ];
 
