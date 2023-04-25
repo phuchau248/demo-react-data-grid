@@ -22,7 +22,6 @@ const InputOption = ({
   const onMouseUp = () => setIsActive(false);
   const onMouseLeave = () => setIsActive(false);
 
-  // styles
   let bg = "transparent";
   if (isFocused) bg = "#eee";
   if (isActive) bg = "#B2D4FF";
@@ -34,7 +33,6 @@ const InputOption = ({
     display: "flex ",
   };
 
-  // prop assignment
   const props = {
     ...innerProps,
     onMouseDown,
@@ -71,7 +69,7 @@ const columns = [
   {
     name: "id",
     header: "Id",
-    defaultVisible: false,
+    visible: false,
     type: "number",
     maxWidth: 40,
   },
@@ -79,7 +77,8 @@ const columns = [
     header: "기준일",
     name: "salesDt",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     render: (data) => {
       const date = data.value;
       return `${date.substring(0, 4)}.${date.substring(4, 6)}.${date.substring(
@@ -92,94 +91,109 @@ const columns = [
     header: "거래처코드",
     name: "suppCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "거래처명",
     name: "suppNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     minWidth: 200,
   },
   {
     header: "구매조건코드",
     name: "purchCondCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "구매조건코드명",
     name: "purchCondNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     minWidth: 200,
   },
   {
     header: "대분류코드",
     name: "itemLclsCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "대분류명",
     name: "itemLclsNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "중분류코드",
     name: "itemMclsCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "중분류코드명",
     name: "itemMclsNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "소분류코드",
     name: "itemSclsCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "소분류코드명",
     name: "itemSclsNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "상품코드",
     name: "itemCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "상품명",
     name: "itemNm",
     minWidth: 300,
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "행사코드",
     name: "uniEvntCd",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "행사구분명",
     name: "uniEvntSpNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "행사유형명",
     name: "evntTypeNm",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     render: (data) => {
       return data?.value ? (
         data?.value === "2+1" ? (
@@ -197,13 +211,15 @@ const columns = [
     name: "evntGrpNm",
     minWidth: 300,
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
   {
     header: "행사기간",
     name: "evntDurEndDt",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     minWidth: 300,
     render: ({ data }) => {
       console.log(data);
@@ -226,7 +242,8 @@ const columns = [
     header: "매출금액",
     name: "salesAmt",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     groupSummaryReducer: {
       initialValue: 0,
       reducer: (a, b) => a + b,
@@ -247,7 +264,8 @@ const columns = [
     header: "매출수량",
     name: "salesQty",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     groupSummaryReducer: {
       initialValue: 0,
       reducer: (a, b) => a + b,
@@ -267,7 +285,8 @@ const columns = [
     header: "행사원가",
     name: "evntCst",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     groupSummaryReducer: {
       initialValue: 0,
       reducer: (a, b) => a + b,
@@ -287,7 +306,8 @@ const columns = [
     header: "취급점포수(개)",
     name: "evntItemHdlStrCnt",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     groupSummaryReducer: {
       initialValue: 0,
       reducer: (a, b) => a + b,
@@ -307,7 +327,8 @@ const columns = [
     header: "전체점포수(개)",
     name: "saleStrCnt",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
     groupSummaryReducer: {
       initialValue: 0,
       reducer: (a, b) => a + b,
@@ -327,7 +348,8 @@ const columns = [
     header: "취급율(%)",
     name: "ratio",
     textAlign: "center",
-    defaultVisible: true,
+    visible: true,
+    locked: false,
   },
 ];
 
@@ -336,11 +358,6 @@ const options = [
   { value: 50, label: "50 Record" },
   { value: 100, label: "100 Record" },
 ];
-
-const groupColumn = {
-  renderGroupValue: ({ value }) =>
-    value === "true" ? "Yes" : value === "false" ? "No" : value,
-};
 
 const listColumns = columns.slice(1, columns.length).map((item, index) => {
   return {
@@ -355,16 +372,31 @@ const listColumns = columns.slice(1, columns.length).map((item, index) => {
 const RGDTable = () => {
   const [pageSize, setPageSize] = useState(options[0]);
 
-  const [activeColumns, setActiveColumns] = useState(
-    listColumns.filter((item) => item.defaultVisible === true)
-  );
+  const [activeColumns, setActiveColumns] = useState(listColumns);
 
   const handleChangePageSize = (value) => {
     setPageSize(value);
   };
   const handleChangeActiveColumns = (value) => {
-    setActiveColumns(value.sort((a, b) => a.index - b.index));
-    console.log(value);
+    const newColumns = listColumns.map((item) => {
+      const check = value.find((obj) => obj.key === item.key);
+      return {
+        ...item,
+        visible: check ? true : false,
+      };
+    });
+    setActiveColumns(newColumns.sort((a, b) => a.index - b.index));
+  };
+
+  const handleChangeLockedColumns = (value) => {
+    const newColumns = listColumns.map((item) => {
+      const check = value.find((obj) => obj.key === item.key);
+      return {
+        ...item,
+        locked: check ? true : false,
+      };
+    });
+    setActiveColumns(newColumns.sort((a, b) => a.index - b.index));
   };
 
   const dataSource = useCallback(
@@ -421,12 +453,27 @@ const RGDTable = () => {
           className="react-select active-columns-select"
           classNamePrefix="active-columns-select"
           placeholder="항목보기"
-          value={activeColumns}
+          value={activeColumns.filter((item) => item.visible === true)}
           closeMenuOnSelect={false}
           hideSelectedOptions={false}
           controlShouldRenderValue={false}
           options={listColumns}
           onChange={handleChangeActiveColumns}
+          components={{
+            Option: InputOption,
+          }}
+        />
+        <Select
+          isMulti
+          className="react-select active-columns-select"
+          classNamePrefix="active-columns-select"
+          placeholder="항목보기"
+          value={activeColumns.filter((item) => item.locked === true)}
+          closeMenuOnSelect={false}
+          hideSelectedOptions={false}
+          controlShouldRenderValue={false}
+          options={listColumns.filter((item) => item.visible === true)}
+          onChange={handleChangeLockedColumns}
           components={{
             Option: InputOption,
           }}
@@ -437,8 +484,6 @@ const RGDTable = () => {
         className="data-grid-table"
         showZebraRows={false}
         // defaultFilterValue={filterValue}
-        defaultGroupBy={["salesDt"]}
-        groupColumn={groupColumn}
         columns={activeColumns}
         dataSource={dataSource}
         reorderColumns={true}
