@@ -338,8 +338,16 @@ const options = [
 ];
 
 const groupColumn = {
-  renderGroupValue: ({ value }) =>
-    value === "true" ? "Yes" : value === "false" ? "No" : value,
+  renderGroupValue: ({ value, data }) => {
+    if (data?.fieldPath[data?.fieldPath.length - 1] === "salesDt") {
+      return `${value.substring(0, 4)}.${value.substring(
+        4,
+        6
+      )}.${value.substring(6, 8)}.`;
+    } else {
+      return value;
+    }
+  },
 };
 
 const listColumns = columns.slice(1, columns.length).map((item, index) => {
