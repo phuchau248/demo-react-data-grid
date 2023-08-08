@@ -366,8 +366,9 @@ const groupColumn = {
 
 const listColumns = columns.slice(1, columns.length).map((items, index) => {
   return {
-    value: item.name,
-    label: item.header,
+    ...items,
+    value: items.name,
+    label: items.header,
     index,
     key: items.name,
   };
