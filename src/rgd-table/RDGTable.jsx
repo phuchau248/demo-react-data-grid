@@ -279,13 +279,13 @@ const groupColumn = {
     value === "true" ? "Yes" : value === "false" ? "No" : value,
 };
 
-const listColumns = columns.slice(1, columns.length).map((item, index) => {
+const listColumns = columns.slice(1, columns.length).map((items, index) => {
   return {
-    ...item,
-    value: item.name,
-    label: item.header,
+    ...items,
+    value: items.name,
+    label: items.header,
     index,
-    key: item.name,
+    key: items.name,
   };
 });
 
