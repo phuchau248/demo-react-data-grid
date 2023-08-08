@@ -1,12 +1,11 @@
 import "./App.css";
-import DataTable from "./rgd-table/RDGTable";
+import RGDTable from "./rgd-table/RDGTable";
 import MaterialReactTable from "./material-react-table/MaterialReactTable";
 
 function App() {
   return (
     <div className="App" style={{ margin: "20px" }}>
-      <DataTable />
-
+      <RGDTable />
       <MaterialReactTable />
     </div>
   );

@@ -344,9 +344,14 @@ const groupColumn = {
 
 const listColumns = columns.slice(1, columns.length).map((items, index) => {
   return {
+<<<<<<< HEAD
     ...items,
     value: items.name,
     label: items.header,
+=======
+    value: item.name,
+    label: item.header,
+>>>>>>> da4ad44 (aaa)
     index,
     key: items.name,
   };
