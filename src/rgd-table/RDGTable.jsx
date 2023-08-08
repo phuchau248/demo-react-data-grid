@@ -289,10 +289,12 @@ const listColumns = columns.slice(1, columns.length).map((items, index) => {
   };
 });
 
-const RGDTable = () => {
+const DataTable = () => {
   const [pageSize, setPageSize] = useState(options[0]);
 
+
   const [activeColumns, setActiveColumns] = useState(
+   
     listColumns.filter((item) => item.defaultVisible === true)
   );
 
@@ -386,4 +388,4 @@ const RGDTable = () => {
     </div>
   );
 };
-export default RGDTable;
+export default DataTable;
