@@ -289,7 +289,7 @@ const listColumns = columns.slice(1, columns.length).map((item, index) => {
   };
 });
 
-const RGDTable = () => {
+const DataTable = () => {
   const [pageSize, setPageSize] = useState(options[0]);
 
 
@@ -388,4 +388,4 @@ const RGDTable = () => {
     </div>
   );
 };
-export default RGDTable;
+export default DataTable;
