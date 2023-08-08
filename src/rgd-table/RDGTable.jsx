@@ -281,7 +281,6 @@ const groupColumn = {
 
 const listColumns = columns.slice(1, columns.length).map((item, index) => {
   return {
-    ...item,
     value: item.name,
     label: item.header,
     index,
